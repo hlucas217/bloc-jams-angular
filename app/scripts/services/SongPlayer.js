@@ -30,13 +30,8 @@
                 formats: ['mp3'],
                 preload: true
             });
-<<<<<<< HEAD
- 
-            currentSong = song;
-=======
 
             SongPlayer.currentSong = song;
->>>>>>> checkpoint8-services3
         }; 
         
         /**
@@ -47,6 +42,11 @@
         var playSong = function(song) {
             currentBuzzObject.play();
             song.playing = true;
+        };
+        
+        var stopSong = function(song) {
+            currentBuzzObject.stop();
+            song.playing = null;
         };
         
         /**
@@ -75,7 +75,7 @@
             if (SongPlayer.currentSong !== song) {
                 setSong(song);
                 playSong(song);             
-            } else if (currentSong === song) {
+            } else if (SongPlayer.currentSong === song) {
                 if (currentBuzzObject.isPaused()) {
                     playSong(song);
                 }
@@ -102,8 +102,26 @@
             currentSongIndex--;
             
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong(SongPlayer.currentSong);
+            } else {
+                var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        };
+        
+        /**
+        * @func next
+        * @desc move to next song
+        */
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+            
+            var lastSongIndex = currentAlbum.songs.length - 1;
+            
+            if (currentSongIndex > lastSongIndex) {
+                stopSong(SongPlayer.currentSong);
             } else {
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
