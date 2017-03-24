@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-    grunt.registerTask( 'default', [ 'clean', 'copy', 'hapi', 'watch'] );
+    grunt.registerTask( 'default', [ 'clean', 'copy', 'hapi', 'watch', 'eslint'] );
 
     grunt.registerTask( 'build', [ 'clean', 'copy' ] );
 
@@ -70,6 +70,10 @@ module.exports = function(grunt) {
             }
         },
 
+        eslint: {
+            target: ['./app/scripts/**/*.js']
+        },
+
         clean: ['./dist']
     });
 
@@ -77,5 +81,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-hapi');
+    grunt.loadNpmTasks('grunt-eslint');
 
 };
