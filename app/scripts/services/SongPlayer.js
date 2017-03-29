@@ -82,6 +82,7 @@
         * @type {Number}
         */
         SongPlayer.volume = 60;
+        
         /**
         * @function play
         * @desc play current or new song
